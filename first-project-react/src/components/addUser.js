@@ -1,29 +1,35 @@
 import React from 'react'
 
 class AddUser extends React.Component {
-    userAdd = {}
+
     constructor(props) {
         super(props)
         this.state = {
-            firstName: '',
-            lastName: '',
-            bio: '',
+            first_name: '',
+            last_name: '',
+            avatar: '',
+            email: '',
             age: 1,
             isHappy: false,
         }
+        this.user = this.props.user
+        this.userAdd = {}
     }
-    user = this.props.user
+
     render() {
         return (
             <form ref={(element) => this.myForm = element} >
                 <input placeholder='First name' onChange={(event) => {
-                    this.setState({ firstName: event.target.value })
+                    this.setState({ first_name: event.target.value })
                 }} />
                 <input placeholder='Last name' onChange={(event) => {
-                    this.setState({ lastName: event.target.value })
+                    this.setState({ last_name: event.target.value })
                 }} />
-                <textarea placeholder='Bio' onChange={(event) => {
-                    this.setState({ bio: event.target.value })
+                <input placeholder='Avatar url' onChange={(event) => {
+                    this.setState({ avatar: event.target.value })
+                }} />
+                <textarea placeholder='email' onChange={(event) => {
+                    this.setState({ email: event.target.value })
                 }}></textarea>
                 <input placeholder='Age' onChange={(event) => {
                     this.setState({ age: event.target.value })
@@ -35,17 +41,16 @@ class AddUser extends React.Component {
                 <button type='button' onClick={() => {
                     this.myForm.reset()
                     this.userAdd = {
-                        firstName: this.state.firstName,
-                        lastName: this.state.lastName,
-                        bio: this.state.bio,
+                        first_name: this.state.first_name,
+                        last_name: this.state.last_name,
+                        avatar: this.state.avatar,
+                        email: this.state.email,
                         age: this.state.age,
                         isHappy: this.state.isHappy,
                     }
-                    if (this.props.user) {
-                        this.userAdd.id = this.props.user.id
+                    this.user ?
+                        this.userAdd.id = this.user.id :
                         this.props.onAdd(this.userAdd)
-                    }
-
                 }
                 }>add</button>
             </ form>
